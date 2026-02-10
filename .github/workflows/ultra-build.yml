@@ -1,0 +1,32 @@
+name: Ultra Simple Build
+
+on: workflow_dispatch
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    timeout-minutes: 45
+    
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v4
+      
+    - name: Setup Java 11
+      uses: actions/setup-java@v4
+      with:
+        java-version: '11'
+        distribution: 'temurin'
+        
+    - name: Run with full debug
+      run: |
+        chmod +x gradlew
+        ./gradlew assembleDebug --no-daemon --stacktrace --info --warning-mode all
+        
+    - name: Check APK exists
+      run: ls -la TMessagesProj/build/outputs/apk/debug/
+      
+    - name: Upload APK
+      uses: actions/upload-artifact@v4
+      with:
+        name: AyuGram-Ultra-APK
+        path: TMessagesProj/build/outputs/apk/debug/*.apk
