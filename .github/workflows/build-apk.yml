@@ -17,7 +17,7 @@ jobs:
     - name: 🔧 Делаем gradlew исполняемым
       run: chmod +x gradlew
     - name: 🏗️ Собираем APK
-      run: ./gradlew assembleDebug
+      run: ./gradlew assembleDebug --no-configuration-cache
     - name: 📤 Загружаем APK
       uses: actions/upload-artifact@v4
       with:
