@@ -1781,8 +1781,8 @@ public class InstantCameraView extends FrameLayout implements NotificationCenter
 
         private static final String VIDEO_MIME_TYPE = "video/avc";
         private static final String AUDIO_MIME_TYPE = "audio/mp4a-latm";
-        private static final int FRAME_RATE = 30;
-        private static final int IFRAME_INTERVAL = 1;
+        private static final int FRAME_RATE = 60;
+        private static final int IFRAME_INTERVAL = 0;
 
         private File videoFile;
         private int videoWidth;
@@ -1945,8 +1945,8 @@ public class InstantCameraView extends FrameLayout implements NotificationCenter
         };
 
         public void startRecording(File outputFile, android.opengl.EGLContext sharedContext) {
-            int resolution = MessagesController.getInstance(currentAccount).roundVideoSize;
-            int bitrate = MessagesController.getInstance(currentAccount).roundVideoBitrate * 1024;
+            int resolution = 1080; // было: MessagesController.getInstance(currentAccount).roundVideoSize;
+            int bitrate = 8000 * 1024; // было: MessagesController.getInstance(currentAccount).roundVideoBitrate * 1024;
 
             videoFile = outputFile;
             videoWidth = resolution;
@@ -2354,9 +2354,9 @@ public class InstantCameraView extends FrameLayout implements NotificationCenter
                     videoEditedInfo.key = key;
                     videoEditedInfo.iv = iv;
                     videoEditedInfo.estimatedSize = Math.max(1, size);
-                    videoEditedInfo.framerate = 25;
-                    videoEditedInfo.resultWidth = videoEditedInfo.originalWidth = 360;
-                    videoEditedInfo.resultHeight = videoEditedInfo.originalHeight = 360;
+                    videoEditedInfo.framerate = 60;
+                    videoEditedInfo.resultWidth = videoEditedInfo.originalWidth = 1080;
+                    videoEditedInfo.resultHeight = videoEditedInfo.originalHeight = 1080;
                     videoEditedInfo.originalPath = videoFile.getAbsolutePath();
                     if (send == 1) {
                         if (baseFragment.isInScheduleMode()) {
