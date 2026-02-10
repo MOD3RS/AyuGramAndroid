@@ -1,0 +1,32 @@
+name: Build AyuGram APK
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@3
+      
+    - name: Setup Java 17
+      uses: actions/setup-java@3
+      with:
+        java-version: '17'
+        distribution: 'temurin'
+        
+    - name: Make gradlew executable
+      run: chmod +x gradlew
+      
+    - name: Build Debug APK
+      run: ./gradlew assembleDebug
+      
+    - name: Upload APK
+      uses: actions/upload-artifact@3
+      with:
+        name: AyuGram-Debug-APK
+        path: TMessagesProj/build/outputs/apk/debug/*.apk
